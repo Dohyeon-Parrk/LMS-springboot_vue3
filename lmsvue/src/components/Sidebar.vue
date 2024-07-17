@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-header">
-      <img src="@/assets/logo.png" alt="메타대학교 로고" class="logo"/>
+      <img src="../assets/logo.png" alt="메타대학교 로고" class="logo"/>
       <h3 @click="goToMenu('/')">vue3 대학교</h3>
     </div>
     <nav class="sidebar-nav">
@@ -28,24 +28,31 @@ export default {
     return {
       sidebarConfig: [
         {
-          text: '공지사항',
+          text: '공지 사항',
           items: [
             { text: '공지 게시판', link: '/dashboard' }
           ]
         },
         {
-          text: '수강신청',
+          text: '수강 신청',
           items: [
-            { text: '수강신청', link: '/enrolment' },
-            { text: '수강신청내역', link: '/enrolmentlist' },
-            { text: '시간표조회', link: '/schedule' }
+            { text: '수강 신청', link: '/enrolment' },
+            { text: '수강 신청 내역', link: '/enrolmentlist' },
+            { text: '시간표 조회', link: '/schedule' }
+          ]
+        },
+        {
+          text: '강의 관리',
+          items: [
+            {text: '강의 계획서 조회', link: ''},
+            {text: '과거 수강내역 조회', link: ''},
+            {text: '성적 조회', link: ''},
           ]
         },
         {
           text: '학적 관리',
           items: [
             { text: '내 학적 정보', link: '' },
-            { text: '비밀번호 변경', link: '' },
             { text: '등록금 고지서 조회', link: '' }
           ]
         },
@@ -122,7 +129,7 @@ export default {
 
 .submenu li {
   margin: 5px 0;
-  padding-left: 30px;
+  padding-left: 40px;
 }
 
 .submenu li a {

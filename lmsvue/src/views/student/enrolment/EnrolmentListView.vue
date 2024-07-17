@@ -5,26 +5,22 @@
       <header>
         <h1>수강신청 내역</h1>
         <div class="user-info">
-          <span>### 관리자</span>
+          <span>###</span>
         </div>
       </header>
       <section>
-        <div class="board-search">
-          <select>
-            <option>분류</option>
-          </select>
-          <input type="text" placeholder="검색어를 입력하세요."/>
-          <button>검색</button>
-        </div>
+        <h5 class="h-content">신청과목</h5>
         <table>
           <thead>
-          <tr>
-            <th>번호</th>
-            <th>분류</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>등록일</th>
-            <th>조회수</th>
+          <tr style="background-color: #9d9d9d">
+            <th>강의번호</th>
+            <th>학년</th>
+            <th>구분</th>
+            <th>강의이름</th>
+            <th>강의실</th>
+            <th>강의시간</th>
+            <th>학점</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -35,29 +31,36 @@
             <td>{{ post.author }}</td>
             <td>{{ post.date }}</td>
             <td>{{ post.views }}</td>
+            <td>{{ post.views }}</td>
+            <td>
+              <button @click="enroll(course)" class="btn secondary">취소</button>
+            </td>
           </tr>
           </tbody>
         </table>
-        <div class="pagination">
-          <button v-for="page in totalPages" :key="page" @click="goToPage(page)">{{ page }}</button>
+        <div class="overflow-auto">
+          <div>
+            <b-pagination v-model="currentPage" pills :total-rows="rows" class="pagination-area"></b-pagination>
+          </div>
         </div>
       </section>
     </div>
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
 
 export default {
   components: {Sidebar},
   data() {
     return {
       posts: [
-        {id: 136, category: '학사', title: '공지 테스트', author: '행정팀', date: '2021-09-30', views: 0},
-        {id: 135, category: '학사', title: '2021학년도 2학기 등록금 4차 추가 납부기간 안내', author: '재무과', date: '2021-09-30', views: 6},
+        {id: 136, category: '1학년', title: '전공 필수', author: '행정팀', date: '2021-09-30', views: 0},
+        {id: 135, category: '2학년', title: '교양', author: '재무과', date: '2021-09-30', views: 6},
         // 추가 게시글 데이터
       ],
-      totalPages: 10
+      rows: 100,
+      currentPage: 1
     };
   },
   methods: {
@@ -67,84 +70,7 @@ export default {
   }
 };
 </script>
-<style scoped>
-#app {
-  display: flex;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav ul li {
-  margin: 10px 0;
-}
-
-nav ul ul {
-  margin-left: 20px;
-}
-
-nav ul li a {
-  color: #ecf0f1;
-  text-decoration: none;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-  background-color: #ecf0f1;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.user-info {
-  font-size: 14px;
-}
-
-.board-search {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.board-search select,
-.board-search input {
-  margin-right: 10px;
-  padding: 5px;
-}
-
-.board-search button {
-  padding: 5px 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table th,
-table td {
-  border: 1px solid #bdc3c7;
-  padding: 10px;
-  text-align: center;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  padding: 5px 10px;
-  margin: 0 5px;
-}
-
+<style lang="scss" scoped>
+@import "@/assets/css/admin";
 </style>
 

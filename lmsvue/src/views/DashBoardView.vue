@@ -10,12 +10,12 @@
       </header>
       <section>
         <h5 class="h-content">학사공지</h5>
-        <div class="board-search">
+        <div class="board-search m-lg-5">
           <select>
             <option>분류</option>
           </select>
           <input type="text" placeholder="검색어를 입력하세요."/>
-          <button>검색</button>
+          <button class="btn primary">검색</button>
         </div>
         <table>
           <thead>
@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
 
 export default {
   components: {Sidebar},
@@ -64,103 +64,9 @@ export default {
       currentPage: 1
     };
   },
-  methods: {
-    goToPage(page) {
-      // 페이지 이동 로직
-    }
-  }
 };
 </script>
-<style scoped>
-#app {
-  display: flex;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav ul li {
-  margin: 10px 0;
-}
-
-nav ul ul {
-  margin-left: 20px;
-}
-
-nav ul li a {
-  color: #ecf0f1;
-  text-decoration: none;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-  background-color: #ecf0f1;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 50px;
-  border-bottom: 3px solid #0f0f0f;
-}
-
-.h-content {
-  margin-bottom: 30px;
-}
-
-.user-info {
-  font-size: 14px;
-}
-
-.board-search {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.board-search select,
-.board-search input {
-  margin-right: 10px;
-  padding: 5px;
-}
-
-.board-search button {
-  padding: 5px 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table th,
-table td {
-  border: 1px solid #bdc3c7;
-  padding: 10px;
-  text-align: center;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  padding: 5px 10px;
-  margin: 0 5px;
-}
-
-.overflow-auto {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  padding: 5px 10px;
-}
-
+<style lang="scss" scoped>
+@import "@/assets/css/admin.scss";
 </style>
 

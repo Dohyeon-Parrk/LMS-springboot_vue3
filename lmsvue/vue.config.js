@@ -9,14 +9,7 @@ module.exports = defineConfig({
     loaderOptions: {
       sass: {
         additionalData: `
-          @import "@/assets/scss/basic.scss";
-          @import "@/assets/scss/common.scss";
-          @import "@/assets/scss/font.scss";
-          @import "@/assets/scss/layout.scss";
-          @import "@/assets/scss/login.scss";
-          @import "@/assets/scss/reset.scss";
-          @import "@/assets/scss/apexcharts.scss";
-          @import "@/assets/scss/bootstrap.scss";
+          @import "@/assets/css/admin.scss";
         `
       }
     }

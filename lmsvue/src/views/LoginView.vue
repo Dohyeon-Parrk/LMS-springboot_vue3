@@ -3,7 +3,7 @@
     <div class="login-container">
       <div class="login-box">
         <div class="logo-container">
-          <img src="@/assets/images/admin/login/scm_logo.jpg" alt="Meta University Logo" class="logo" />
+          <img src="@/assets/images/admin/login/lms_logo.png" alt="Meta University Logo" class="logo" />
         </div>
         <form class="login-form">
             <legend align="center">로그인</legend>

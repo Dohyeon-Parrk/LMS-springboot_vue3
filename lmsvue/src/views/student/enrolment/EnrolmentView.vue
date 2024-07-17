@@ -5,146 +5,96 @@
       <header>
         <h1>수강신청</h1>
         <div class="user-info">
-          <span>### 관리자</span>
+          <span>###</span>
         </div>
       </header>
       <section>
-        <div class="board-search">
-          <select>
-            <option>분류</option>
-          </select>
-          <input type="text" placeholder="검색어를 입력하세요."/>
-          <button>검색</button>
-        </div>
-        <table>
-          <thead>
-          <tr>
-            <th>번호</th>
-            <th>분류</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>등록일</th>
-            <th>조회수</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="post in posts" :key="post.id">
-            <td>{{ post.id }}</td>
-            <td>{{ post.category }}</td>
-            <td>{{ post.title }}</td>
-            <td>{{ post.author }}</td>
-            <td>{{ post.date }}</td>
-            <td>{{ post.views }}</td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="pagination">
-          <button v-for="page in totalPages" :key="page" @click="goToPage(page)">{{ page }}</button>
+        <search-bar-view></search-bar-view>
+        <div class="results">
+          <h5 class="h-content">개설과목</h5>
+          <table>
+            <thead>
+            <tr style="background-color: #9d9d9d">
+              <th>강의번호</th>
+              <th>학과</th>
+              <th>학년</th>
+              <th>구분</th>
+              <th>강의이름</th>
+              <th>강의실</th>
+              <th>강의시간</th>
+              <th>분반</th>
+              <th>학점</th>
+              <th>신청</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="course in courses" :key="course.id">
+              <td>{{ course.id }}</td>
+              <td>{{ course.department }}</td>
+              <td>{{ course.year }}</td>
+              <td>{{ course.type }}</td>
+              <td>{{ course.name }}</td>
+              <td>{{ course.room }}</td>
+              <td>{{ course.time }}</td>
+              <td>{{ course.section }}</td>
+              <td>{{ course.credits }}</td>
+              <td>
+                <button @click="enroll(course)" class="btn secondary">담기</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </div>
   </div>
 </template>
+
 <script>
-import Sidebar from "@/components/sidebar/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import SearchBarView from "@/components/student/SearchBarView.vue";
 
 export default {
-  components: {Sidebar},
+  components: {Sidebar, SearchBarView},
   data() {
     return {
-      posts: [
-        {id: 136, category: '학사', title: '공지 테스트', author: '행정팀', date: '2021-09-30', views: 0},
-        {id: 135, category: '학사', title: '2021학년도 2학기 등록금 4차 추가 납부기간 안내', author: '재무과', date: '2021-09-30', views: 6},
-        // 추가 게시글 데이터
+      courses: [
+        {
+          id: '000001',
+          department: '컴퓨터공학과',
+          year: '2학년',
+          type: '전공',
+          name: '자바 개론',
+          room: '301건 201호',
+          time: '수 1,2,3',
+          section: '2분반',
+          credits: 3,
+        },
+        {
+          id: '000002',
+          department: '컴퓨터공학과',
+          year: '2학년',
+          type: '전공',
+          name: '자바 개론',
+          room: '301건 201호',
+          time: '목 1,2,3',
+          section: '1분반',
+          credits: 3,
+        },
       ],
-      totalPages: 10
     };
   },
   methods: {
-    goToPage(page) {
-      // 페이지 이동 로직
-    }
-  }
+    filter() {
+      // 필터 적용 로직
+    },
+    enroll(course) {
+      // 수강 신청 로직
+    },
+  },
 };
 </script>
-<style scoped>
-#app {
-  display: flex;
-}
 
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav ul li {
-  margin: 10px 0;
-}
-
-nav ul ul {
-  margin-left: 20px;
-}
-
-nav ul li a {
-  color: #ecf0f1;
-  text-decoration: none;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-  background-color: #ecf0f1;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.user-info {
-  font-size: 14px;
-}
-
-.board-search {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.board-search select,
-.board-search input {
-  margin-right: 10px;
-  padding: 5px;
-}
-
-.board-search button {
-  padding: 5px 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table th,
-table td {
-  border: 1px solid #bdc3c7;
-  padding: 10px;
-  text-align: center;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  padding: 5px 10px;
-  margin: 0 5px;
-}
-
+<style lang="scss" scoped>
+  @import "@/assets/css/admin.scss";
 </style>
-

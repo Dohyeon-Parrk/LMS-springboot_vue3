@@ -1,155 +1,160 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <img src="@/assets/logo.png" alt="메타대학교 로고" class="logo"/>
-      <h3 @click="goToMenu('/')">vue3 대학교</h3>
-    </div>
-    <nav class="sidebar-nav">
-      <ul>
-        <li v-for="(section, index) in sidebarConfig" :key="index">
-          <div class="section-title" @click="toggleDropdown(index)">
-            {{ section.text }}
-            <span :class="{'arrow': true, 'arrow-down': activeIndex === index, 'arrow-right': activeIndex !== index}"></span>
+  <div id="app" class="content">
+    <sidebar></sidebar>
+    <div class="main-content">
+      <header>
+        <h1>학사공지</h1>
+        <div class="user-info">
+          <span>###</span>
+        </div>
+      </header>
+      <section>
+        <h5 class="h-content">학사공지</h5>
+        <div class="board-search">
+          <select>
+            <option>분류</option>
+          </select>
+          <input type="text" placeholder="검색어를 입력하세요."/>
+          <button>검색</button>
+        </div>
+        <table>
+          <thead>
+          <tr style="background-color: #9d9d9d">
+            <th>번호</th>
+            <th>분류</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+            <th>조회수</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="post in posts" :key="post.id">
+            <td>{{ post.id }}</td>
+            <td>{{ post.category }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.date }}</td>
+            <td>{{ post.views }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="overflow-auto">
+          <div>
+            <b-pagination v-model="currentPage" pills :total-rows="rows" class="pagination-area"></b-pagination>
           </div>
-          <ul v-if="activeIndex === index" class="submenu">
-            <li v-for="item in section.items" :key="item.link">
-              <router-link :to="item.link">{{ item.text }}</router-link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
-
 <script>
+import Sidebar from "@/components/Sidebar.vue";
+
 export default {
+  components: {Sidebar},
   data() {
     return {
-      sidebarConfig: [
-        {
-          text: '공지사항',
-          items: [
-            { text: '공지 게시판', link: '/dashboard' }
-          ]
-        },
-        {
-          text: '수강신청',
-          items: [
-            { text: '수강신청', link: '/enrolment' },
-            { text: '수강신청내역', link: '/enrolmentlist' },
-            { text: '시간표조회', link: '/schedule' }
-          ]
-        },
-        {
-          text: '학적 관리',
-          items: [
-            { text: '내 학적 정보', link: '' },
-            { text: '비밀번호 변경', link: '' },
-            { text: '등록금 고지서 조회', link: '' }
-          ]
-        },
-        {
-          text: '마이페이지',
-          items: [
-            { text: '내 정보', link: '' },
-            { text: '비밀번호 변경', link: '' }
-          ]
-        }
+      posts: [
+        {id: 136, category: '학사', title: '공지 테스트', author: '행정팀', date: '2021-09-30', views: 0},
+        {id: 135, category: '학사', title: '2021학년도 2학기 등록금 4차 추가 납부기간 안내', author: '재무과', date: '2021-09-30', views: 6},
+        // 추가 게시글 데이터
       ],
-      activeIndex: null
+      rows: 100,
+      currentPage: 1
     };
   },
   methods: {
-    goToMenu(path) {
-      this.$router.push(path);
-    },
-    toggleDropdown(index) {
-      this.activeIndex = this.activeIndex === index ? null : index;
+    goToPage(page) {
+      // 페이지 이동 로직
     }
   }
 };
 </script>
-
-<style>
-.sidebar {
-  width: 300px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.sidebar-header {
+<style scoped>
+#app {
   display: flex;
-  align-items: center;
-  margin-bottom: 70px;
-  cursor: pointer;
 }
 
-.logo {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-}
-
-.sidebar-nav ul {
+nav ul {
   list-style: none;
   padding: 0;
 }
 
-.sidebar-nav ul li {
+nav ul li {
   margin: 10px 0;
-  padding: 15px;
 }
 
-.section-title {
-  font-weight: bold;
-  margin-bottom: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+nav ul ul {
+  margin-left: 20px;
 }
 
-.submenu {
-  padding-left: 30px;
-  background-color: #3a3a3a;
-  list-style: none;
-  margin: 0;
-}
-
-.submenu li {
-  margin: 5px 0;
-  padding-left: 30px;
-}
-
-.submenu li a {
+nav ul li a {
   color: #ecf0f1;
   text-decoration: none;
 }
 
-.submenu li a:hover {
-  text-decoration: underline;
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ecf0f1;
 }
 
-.arrow {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 10px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  transition: transform 0.3s ease;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+  border-bottom: 3px solid #0f0f0f;
 }
 
-.arrow-right {
-  border-top: 5px solid #ecf0f1;
+.h-content {
+  margin-bottom: 30px;
 }
 
-.arrow-down {
-  border-top: 5px solid #ecf0f1;
-  transform: rotate(90deg);
+.user-info {
+  font-size: 14px;
 }
+
+.board-search {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.board-search select,
+.board-search input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.board-search button {
+  padding: 5px 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #bdc3c7;
+  padding: 10px;
+  text-align: center;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.overflow-auto {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 5px 10px;
+}
+
 </style>
+
